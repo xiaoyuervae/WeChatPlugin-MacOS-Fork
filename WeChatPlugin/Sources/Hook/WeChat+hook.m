@@ -17,6 +17,7 @@
 #import "TKVersionManager.h"
 #import "TKRemoteControlManager.h"
 #import "TKDownloadWindowController.h"
+#import "FormulaStringCalcUtility.h"
 
 @implementation NSObject (WeChatHook)
 
@@ -459,10 +460,13 @@
     
     MMSessionMgr *sessionMgr = [[objc_getClass("MMServiceCenter") defaultCenter] getService:objc_getClass("MMSessionMgr")];
     WCContactData *msgContact = [sessionMgr getContact:userName];
-    if ([msgContact isBrandContact] || [msgContact isSelf]) {
-        //        该消息为公众号或者本人发送的消息
+    
+    if ([msgContact isSelf]) {
+        //        本人发送的消息
         return;
     }
+    
+    
     NSArray *autoReplyModels = [[TKWeChatPluginConfig sharedConfig] autoReplyModels];
     [autoReplyModels enumerateObjectsUsingBlock:^(TKAutoReplyModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
         if (!model.enable) return;
@@ -474,6 +478,12 @@
             }
             return;
         }
+        
+        if ([msgContact isBrandContact] && model.enablePublicReply) {
+            [self replyWithMsg:addMsg model:model];
+            return;
+        }
+        
         if ([addMsg.fromUserName.string containsString:@"@chatroom"] && !model.enableGroupReply) return;
         if (![addMsg.fromUserName.string containsString:@"@chatroom"] && !model.enableSingleReply) return;
         
@@ -502,6 +512,7 @@
         if (error) return;
         NSInteger count = [regular numberOfMatchesInString:msgContent options:NSMatchingReportCompletion range:NSMakeRange(0, msgContent.length)];
         if (count > 0) {
+            randomReplyContent = [self replaceContentBeforeReply:randomReplyContent:msgContent];
             [[TKMessageManager shareManager] sendTextMessage:randomReplyContent toUsrName:addMsg.fromUserName.string delay:delayTime];
         }
     } else {
@@ -514,6 +525,47 @@
         }];
     }
 }
+
+- (NSString *)replaceContentBeforeReply: (NSString *)replyContent :(NSString *)msgContent {
+    
+    NSString *adidasAnswer = @"答案";
+    if ([replyContent isEqualToString: adidasAnswer]) {
+        // 解析msgContent中的计算公式
+        NSArray *aArray = [msgContent componentsSeparatedByString:@"问题" ];
+        if (!(aArray != nil && ![aArray isKindOfClass:[NSNull class]] && aArray.count != 0)) {
+            return replyContent;
+        }
+        
+        NSString *realQuestion = [aArray objectAtIndex:aArray.count - 1];
+        NSArray *realQuestionArr = [realQuestion componentsSeparatedByString:@"="];
+        
+        if (!(realQuestionArr != nil && ![realQuestionArr isKindOfClass:[NSNull class]] && realQuestionArr.count != 0)) {
+            return replyContent;
+        }
+        
+        NSString *question = [realQuestionArr objectAtIndex:0];
+        
+        // 替换中文相关字符
+        question = [question stringByReplacingOccurrencesOfString:@"加" withString:@"+"];
+        question = [question stringByReplacingOccurrencesOfString:@"减" withString:@"-"];
+        question = [question stringByReplacingOccurrencesOfString:@"乘以" withString:@"*"];
+        question = [question stringByReplacingOccurrencesOfString:@"除以" withString:@"/"];
+        question = [question stringByReplacingOccurrencesOfString:@"减" withString:@"-"];
+        
+        NSString *result = [FormulaStringCalcUtility calcComplexFormulaString:question];
+        
+        NSArray *resultArr = [result componentsSeparatedByString:@"."];
+        
+        
+        return [resultArr objectAtIndex:0];
+        
+        
+    }
+    
+    return replyContent;
+    
+}
+
 
 /**
  远程控制

@@ -92,6 +92,7 @@
 "assistant.autoReply.enable" = "Enable Auto Reply";
 "assistant.autoReply.enableSpecific" = "Enable Some Session Reply";
 "assistant.autoReply.selectSpecific" = "View Or Edit Session";
+"assistant.autoReply.enableGroup" = "Enable Public Reply";
 "assistant.autoReply.enableRegEx" = "Enable RegEx";
 "assistant.autoReply.enableGroup" = "Enable Group Reply";
 "assistant.autoReply.enableSingle" = "Enable Single Reply";

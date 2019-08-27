@@ -94,6 +94,7 @@
 "assistant.autoReply.selectSpecific" = "查看(修改)选中联系人";
 "assistant.autoReply.enableRegEx" = "开启正则匹配";
 "assistant.autoReply.enableGroup" = "开启群聊自动回复";
+"assistant.autoReply.enablePublic" = "开启公众号自动回复";
 "assistant.autoReply.enableSingle" = "开启私聊自动回复";
 "assistant.autoReply.delay" = "延迟发送";
 "assistant.autoReply.timeUnit" = "秒";

@@ -1,3 +1,4 @@
+
 //
 //  TKAutoReplyContentView.m
 //  WeChatPlugin
@@ -16,6 +17,7 @@
 @property (nonatomic, strong) NSTextField *autoReplyLabel;
 @property (nonatomic, strong) NSTextField *autoReplyContentField;
 @property (nonatomic, strong) NSButton *enableGroupReplyBtn;
+@property (nonatomic, strong) NSButton *enablePublicReplyBtn;
 @property (nonatomic, strong) NSButton *enableSingleReplyBtn;
 @property (nonatomic, strong) NSButton *enableRegexBtn;
 @property (nonatomic, strong) NSTextField *delayField;
@@ -65,6 +67,13 @@
         btn;
     });
     
+    self.enablePublicReplyBtn = ({
+        NSButton *btn = [NSButton tk_checkboxWithTitle:TKLocalizedString(@"assistant.autoReply.enablePublic") target:self action:@selector(clickEnablePublicBtn:)];
+        btn.frame = NSMakeRect(20, 75, 400, 20);
+        
+        btn;
+    });
+    
     self.enableSingleReplyBtn = ({
         NSButton *btn = [NSButton tk_checkboxWithTitle:TKLocalizedString(@"assistant.autoReply.enableSingle") target:self action:@selector(clickEnableSingleBtn:)];
         btn.frame = NSMakeRect(200, 50, 400, 20);
@@ -96,7 +105,7 @@
 
     self.autoReplyContentField = ({
         NSTextField *textField = [[NSTextField alloc] init];
-        textField.frame = NSMakeRect(20, 80, 350, 175);
+        textField.frame = NSMakeRect(20, 105, 350, 145);
         textField.placeholderString = TKLocalizedString(@"assistant.autoReply.contentPlaceholder");
         textField.delegate = self;
         
@@ -130,6 +139,7 @@
     
     [self addSubviews:@[self.enableRegexBtn,
                         self.enableGroupReplyBtn,
+                        self.enablePublicReplyBtn,
                         self.enableSingleReplyBtn,
                         self.autoReplyContentField,
                         self.autoReplyLabel,
@@ -163,7 +173,18 @@
     self.model.enableGroupReply = btn.state;
     if (btn.state) {
         self.model.enable = YES;
-    } else if(!self.model.enableSingleReply) {
+    } else if(!self.model.enableSingleReply && !self.model.enablePublicReply) {
+        self.model.enable = NO;
+    }
+    
+    if (self.endEdit) self.endEdit();
+}
+
+- (void)clickEnablePublicBtn:(NSButton *)btn {
+    self.model.enablePublicReply = btn.state;
+    if (btn.state) {
+        self.model.enable = YES;
+    } else if(!self.model.enableSingleReply && !self.model.enableGroupReply) {
         self.model.enable = NO;
     }
     
@@ -174,7 +195,7 @@
     self.model.enableSingleReply = btn.state;
     if (btn.state) {
         self.model.enable = YES;
-    } else if(!self.model.enableGroupReply) {
+    } else if(!self.model.enableGroupReply && !self.model.enablePublicReply) {
         self.model.enable = NO;
     }
     if (self.endEdit) self.endEdit();
@@ -201,6 +222,7 @@
     self.enableGroupReplyBtn.state = model.enableGroupReply;
     self.enableSingleReplyBtn.state = model.enableSingleReply;
     self.enableRegexBtn.state = model.enableRegex;
+    self.enablePublicReplyBtn.state = model.enablePublicReply;
     self.enableDelayBtn.state = model.enableDelay;
     self.delayField.stringValue = [NSString stringWithFormat:@"%ld",model.delayTime];
     self.enableSpecificReplyBtn.state = model.enableSpecificReply;
@@ -208,6 +230,7 @@
     self.selectSessionButton.hidden = !model.enableSpecificReply;
     self.enableGroupReplyBtn.hidden = model.enableSpecificReply;
     self.enableSingleReplyBtn.hidden = model.enableSpecificReply;
+    self.enablePublicReplyBtn.hidden = model.enableSpecificReply;
 }
 
 - (void)selectSessionAction {

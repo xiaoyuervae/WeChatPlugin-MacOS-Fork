@@ -92,6 +92,7 @@
 "assistant.autoReply.enable" = "開啟自動回復";
 "assistant.autoReply.enableSpecific" = "開啟特定回復";
 "assistant.autoReply.selectSpecific" = "查看(修改)選中聯系人";
+"assistant.autoReply.enablePublic" = "開啟公众号自動回復";
 "assistant.autoReply.enableRegEx" = "開啟正則匹配";
 "assistant.autoReply.enableGroup" = "開啟群聊自動回復";
 "assistant.autoReply.enableSingle" = "開啟私聊自動回復";
