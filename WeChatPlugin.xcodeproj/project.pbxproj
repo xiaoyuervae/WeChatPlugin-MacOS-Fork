@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41B284192317FE05004A3AD7 /* FormulaStringCalcUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B284182317FE05004A3AD7 /* FormulaStringCalcUtility.m */; };
+		41B2841B2317FE56004A3AD7 /* FormulaStringCalcUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = 41B2841A2317FE56004A3AD7 /* FormulaStringCalcUtility.h */; };
 		520AE6E8208E1DA300BADE47 /* TKMessageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 520AE6E6208E1DA300BADE47 /* TKMessageManager.h */; };
 		520AE6E9208E1DA300BADE47 /* TKMessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 520AE6E7208E1DA300BADE47 /* TKMessageManager.m */; };
 		520AE6F0208E231F00BADE47 /* NotifyConstant.h in Headers */ = {isa = PBXBuildFile; fileRef = 520AE6EF208E231F00BADE47 /* NotifyConstant.h */; };
@@ -92,6 +94,8 @@
 /* Begin PBXFileReference section */
 		13B308B4A92CE38341762A48 /* Pods-WeChatPlugin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeChatPlugin.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeChatPlugin/Pods-WeChatPlugin.release.xcconfig"; sourceTree = "<group>"; };
 		17F7A08DC0E3A0626801414D /* libPods-WeChatPlugin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeChatPlugin.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		41B284182317FE05004A3AD7 /* FormulaStringCalcUtility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FormulaStringCalcUtility.m; sourceTree = "<group>"; };
+		41B2841A2317FE56004A3AD7 /* FormulaStringCalcUtility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormulaStringCalcUtility.h; sourceTree = "<group>"; };
 		520AE6E6208E1DA300BADE47 /* TKMessageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TKMessageManager.h; sourceTree = "<group>"; };
 		520AE6E7208E1DA300BADE47 /* TKMessageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TKMessageManager.m; sourceTree = "<group>"; };
 		520AE6EF208E231F00BADE47 /* NotifyConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotifyConstant.h; sourceTree = "<group>"; };
@@ -221,6 +225,8 @@
 				52B5CF031F3B4631000D9DD9 /* TKHelper.m */,
 				52810B6921E8FCF500861FC3 /* TKUtility.h */,
 				52810B6A21E8FCF500861FC3 /* TKUtility.m */,
+				41B284182317FE05004A3AD7 /* FormulaStringCalcUtility.m */,
+				41B2841A2317FE56004A3AD7 /* FormulaStringCalcUtility.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -507,6 +513,7 @@
 				52DA3E0D2094790900C618BB /* TKDownloadWindowController.h in Headers */,
 				52475C321F6BA43800760E3E /* TKIgnoreSessonModel.h in Headers */,
 				52810B6B21E8FCF500861FC3 /* TKUtility.h in Headers */,
+				41B2841B2317FE56004A3AD7 /* FormulaStringCalcUtility.h in Headers */,
 				52206B6A20836A230010C232 /* NSMenu+Action.h in Headers */,
 				52B5CF181F3B4631000D9DD9 /* TKRemoteControlModel.h in Headers */,
 				52CD4C7D209ED2300061A5D6 /* TKAutoReplyContentView.h in Headers */,
@@ -540,7 +547,6 @@
 				528B4F8F1EA7383800BC6A89 /* Headers */,
 				528B4F901EA7383800BC6A89 /* Resources */,
 				528B4FB51EA738B100BC6A89 /* ShellScript */,
-				165746E0A28B760DEA538E0D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -571,6 +577,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				"zh-Hans",
 				"zh-Hant",
@@ -605,21 +612,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		165746E0A28B760DEA538E0D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WeChatPlugin/Pods-WeChatPlugin-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		528B4FB51EA738B100BC6A89 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -648,7 +640,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -689,6 +681,7 @@
 				5228EABB1F70B59500D808CF /* NSButton+Action.m in Sources */,
 				52CD4C59209C5CA10061A5D6 /* NSWindowController+Action.m in Sources */,
 				52CD4C82209ED23B0061A5D6 /* TKRemoteControlCell.m in Sources */,
+				41B284192317FE05004A3AD7 /* FormulaStringCalcUtility.m in Sources */,
 				528B4FB41EA7386D00BC6A89 /* main.mm in Sources */,
 				52CD4C9A20A0885A0061A5D6 /* MMStickerMessageCellView+hook.m in Sources */,
 				52475C331F6BA43800760E3E /* TKIgnoreSessonModel.m in Sources */,

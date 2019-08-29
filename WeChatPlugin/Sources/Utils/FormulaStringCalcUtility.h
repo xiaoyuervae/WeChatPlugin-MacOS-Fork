@@ -2,8 +2,8 @@
 //  FormulaStringCalcUtility.h
 //  WeChatPlugin
 //
-//  Created by guanchun on 2018/11/17.
-//  Copyright © 2018 tk. All rights reserved.
+//  Created by 余冠纯 on 2019/8/29.
+//  Copyright © 2019 tk. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
